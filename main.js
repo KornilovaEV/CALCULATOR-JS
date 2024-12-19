@@ -59,7 +59,7 @@ const calculate = (btnValue) => {
     output = evaluateExpression(output.replace("%", "/100")); 
 
   } 
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!кривая логика, на второе число идет правило уже как для первого нельзя!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
   else if (btnValue === "0") {
     if(output !== "0"){
       output += btnValue;
@@ -71,9 +71,6 @@ const calculate = (btnValue) => {
     //If DEL button is clicked, remove the last character from the output.
     output = output.toString().slice(0, -1);
   } 
-
-  
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!кривая логика, два иррациональных нельзя!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   else if(btnValue === "."){  
  
     if(output.toString() === ""){
