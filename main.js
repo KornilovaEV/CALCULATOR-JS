@@ -4,47 +4,11 @@ const specialChars = ["%", "*", "/", "-", "+", "="];
 let output = "";
 
 
-//разбивает строку на числа и операторы
-function tokenize(expression) {
-  // Используем регулярное выражение для разделения чисел и операторов
-  let tokens = expression.match(/-?\d+(?:\.\d+)?|\D+/g);
-  // Преобразуем числа в их числовой эквивалент
-  return tokens.map(token => {
-      const number = parseFloat(token);
-      return isNaN(number) ? token : number;
-  });
-}
-
-//проверка числа на плавающую точку
-function isValidNumber(inputString) {
-  // Удаляем начальные и конечные пробелы
-  inputString = inputString.trim();
-  // Проверяем, есть ли хотя бы одна точка
-  const hasDot = inputString.includes('.');
-  // Если точки нет, проверяем, является ли строка числом без точки
-  if (!hasDot) {
-      return !isNaN(parseFloat(inputString));
-  }
-  // Если точка есть, проверим, что она всего одна и стоит между цифрами
-  const parts = inputString.split('.');
-  if (parts.length !== 2) {
-      return false;
-  }
-  // Обе части должны быть числами
-  for (let part of parts) {
-      if (part === '' || isNaN(parseFloat(part))) {
-          return false;
-      }
-  }
-
-  return true;
-}
-
-
 function evaluateExpression(expression) {
   try {
       const fn = new Function('return ' + expression);
-      return fn();
+      const result = fn();
+      return Number((result).toFixed(10));
   } catch (error) {
       console.error(`Ошибка при выполнении выражения: ${error.message}`);
       return NaN;
@@ -52,14 +16,18 @@ function evaluateExpression(expression) {
 }
 
 
+
+
 const calculate = (btnValue) => {
   display.focus();
   if (btnValue === "=" && output !== "") {
     //If output has '%', replace with '/100' before evaluating.
-    output = evaluateExpression(output.replace("%", "/100")); 
+    // output = parseFloat(output);
+
+      output = evaluateExpression(output.replace("%", "/100")); 
 
   } 
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!кривая логика, на второе число идет правило уже как для первого нельзя!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
   else if (btnValue === "0") {
     if(output !== "0"){
       output += btnValue;
@@ -71,9 +39,6 @@ const calculate = (btnValue) => {
     //If DEL button is clicked, remove the last character from the output.
     output = output.toString().slice(0, -1);
   } 
-
-  
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!кривая логика, два иррациональных нельзя!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   else if(btnValue === "."){  
  
     if(output.toString() === ""){
@@ -90,6 +55,10 @@ const calculate = (btnValue) => {
   } else {
     //If output is empty and button is specialChars then return
     if (output === "" && specialChars.includes(btnValue)) return;
+    else if (output === "0" && btnValue && !specialChars.includes(btnValue)){
+      output = '';
+    }
+    
     output += btnValue;
   }
   display.value = output;
