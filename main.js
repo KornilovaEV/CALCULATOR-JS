@@ -15,19 +15,12 @@ function evaluateExpression(expression) {
   }
 }
 
-
-
-
 const calculate = (btnValue) => {
   display.focus();
   if (btnValue === "=" && output !== "") {
     //If output has '%', replace with '/100' before evaluating.
-    // output = parseFloat(output);
-
-      output = evaluateExpression(output.replace("%", "/100")); 
-
+      output = evaluateExpression(output.replace("%", "/100"));
   } 
-  
   else if (btnValue === "0") {
     if(output !== "0"){
       output += btnValue;
@@ -45,13 +38,10 @@ const calculate = (btnValue) => {
       output = '0';
       output += btnValue;
     }
-
-
-    if(!output.toString().includes(".") )
+   if(!output.toString().includes(".") )
     {
     output += btnValue;
   }
-    
   } else {
     //If output is empty and button is specialChars then return
     if (output === "" && specialChars.includes(btnValue)) return;
