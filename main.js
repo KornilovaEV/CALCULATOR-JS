@@ -3,7 +3,6 @@ const buttons = document.querySelectorAll("button");
 const specialChars = ["%", "*", "/", "-", "+", "="];
 let output = "";
 
-
 function evaluateExpression(expression) {
   try {
       const fn = new Function('return ' + expression);
@@ -15,17 +14,11 @@ function evaluateExpression(expression) {
   }
 }
 
-
-
-
 const calculate = (btnValue) => {
   display.focus();
   if (btnValue === "=" && output !== "") {
     //If output has '%', replace with '/100' before evaluating.
-    // output = parseFloat(output);
-
       output = evaluateExpression(output.replace("%", "/100")); 
-
   } 
   
   else if (btnValue === "0") {
@@ -36,7 +29,6 @@ const calculate = (btnValue) => {
   else if (btnValue === "AC") {
     output = "";
   } else if (btnValue === "DEL") {
-    //If DEL button is clicked, remove the last character from the output.
     output = output.toString().slice(0, -1);
   } 
   else if(btnValue === "."){  
@@ -45,8 +37,6 @@ const calculate = (btnValue) => {
       output = '0';
       output += btnValue;
     }
-
-
     if(!output.toString().includes(".") )
     {
     output += btnValue;
