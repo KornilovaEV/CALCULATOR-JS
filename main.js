@@ -19,7 +19,6 @@ const calculate = (btnValue) => {
   if (btnValue === "=" && output !== "") {
     //If output has '%', replace with '/100' before evaluating.
       output = evaluateExpression(output.replace("%", "/100"));
-      output = evaluateExpression(output.replace("%", "/100")); 
   } 
   else if (btnValue === "0") {
     if(output !== "0"){
